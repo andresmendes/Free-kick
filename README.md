@@ -9,3 +9,6 @@ Watch the animation on YouTube: https://youtu.be/OQEWZ1eGDd0
 ## Model
 
 ![Model](https://www.dropbox.com/s/je4u6uw4vx1c62w/free_kick_model.png?raw=1)
+
+## Reference
+Cook, B.G. and Goff, J.E., 2006. Parameter space for successful soccer kicks. European journal of physics, 27(4), p.865.
