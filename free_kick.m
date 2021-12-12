@@ -34,7 +34,7 @@ ball_velocity = [vx vy vz];
 states0 = [ball_position ball_velocity];
 
 % Video
-playback_speed = 0.04;                  % Speed of playback
+playback_speed = 0.1;                  % Speed of playback
 tF      = 3;                            % Final time                    [s]
 fR      = 30/playback_speed;            % Frame rate                    [fps]
 dt      = 1/fR;                         % Time resolution               [s]
@@ -56,9 +56,9 @@ dz  = yout(:,6);
 %% Animation
 
 figure
-set(gcf,'Position',[50 50 1280 720]) % YouTube: 720p
-% set(gcf,'Position',[50 50 854 480]) % YouTube: 480p
-% set(gcf,'Position',[50 50 640 640]) % Social
+% set(gcf,'Position',[50 50 1280 720])  % YouTube: 720p
+% set(gcf,'Position',[50 50 854 480])   % YouTube: 480p
+set(gcf,'Position',[50 50 640 640])     % Social
 
 % Create and open video writer object
 v = VideoWriter('free_kick.mp4','MPEG-4');
@@ -67,43 +67,47 @@ v.Quality   = 100;
 open(v);
 
 for i=1:length(tout)
-    subplot(3,3,1:6)
+    subplot(4,4,1:8)
     cla
     hold on ; grid on ; axis equal
+    set(gca,'FontName','Verdana','FontSize',12)
     plot_field([-206.4874  199.9462   79.6781],goal_lon_pos,goal_lat_pos)
-    plot3(x(1:i),y(1:i),z(1:i),'r')
-    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',3)
+    plot3(x(1:i),y(1:i),z(1:i),'r','LineWidth',2)
+    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',4)
     xlabel('x [m]')
     ylabel('y [m]')
     zlabel('z [m]')
-    title(strcat('Time=',num2str(tout(i),'%.3f'),' s (Playback speed=',num2str(playback_speed),')'))
+    title(strcat('Free Kick - Time=',num2str(tout(i),'%.3f'),' s (Playback speed=',num2str(playback_speed),')'))
     
-    subplot(3,3,7)
+    subplot(4,4,9:10)
     cla
     hold on ; grid on ; axis equal
+    set(gca,'FontName','Verdana','FontSize',12)
     plot_field([7.5000 -311.1862    2.5000],goal_lon_pos,goal_lat_pos)
-    plot3(x(1:i),y(1:i),z(1:i),'r')
-    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',3)
+    plot3(x(1:i),y(1:i),z(1:i),'r','LineWidth',2)
+    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',4)
     xlabel('x [m]')
     ylabel('y [m]')
     zlabel('z [m]')
     
-    subplot(3,3,8)
+    subplot(4,4,13:14)
     cla
     hold on ; grid on ; axis equal
+    set(gca,'FontName','Verdana','FontSize',12)
     plot_field([313.6862   -5.0000    2.5000],goal_lon_pos,goal_lat_pos)
-    plot3(x(1:i),y(1:i),z(1:i),'r')
-    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',3)
+    plot3(x(1:i),y(1:i),z(1:i),'r','LineWidth',2)
+    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',4)
     xlabel('x [m]')
     ylabel('y [m]')
     zlabel('z [m]')
     
-    subplot(3,3,9)
+    subplot(4,4,[11 12 15 16])
     cla
     hold on ; grid on ; axis equal
+    set(gca,'FontName','Verdana','FontSize',12)
     plot_field([7.5000   -5.0000  308.6862],goal_lon_pos,goal_lat_pos)
-    plot3(x(1:i),y(1:i),z(1:i),'r')
-    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',3)
+    plot3(x(1:i),y(1:i),z(1:i),'r','LineWidth',2)
+    plot3(x(i),y(i),z(i),'bo','MarkerFaceColor','b','MarkerSize',4)
     xlabel('x [m]')
     ylabel('y [m]')
     zlabel('z [m]')
@@ -201,7 +205,7 @@ end
 
 function [position,isterminal,direction] = ball_floor_or_end(~,y,goal_lon_pos)
 % Terminate simulation when ball touches the floor or YZ plane.
-position = y(3)*((goal_lon_pos+5)-y(1));
+position = (goal_lon_pos+5)-y(1);
 isterminal = 1; 
 direction = 0;   
 end
